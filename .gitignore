@@ -1,6 +1,9 @@
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Runtime data
 pids
@@ -34,12 +37,39 @@ build/Release
 # Dependency directories
 node_modules/
 
+# IDE & editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
 # Environmental variables
 .env
 .env.dev
 .env.test
 .env.stage
 .env.prod
+.env.local
+.env.*.local
 
 # Test reports
 /test-reports
+
+# Build artifacts
+*.tsbuildinfo
+
+# Coverage directories
+coverage/
+.nyc_output/
+
+# Prisma local databases
+prisma/*.db
+prisma/*.db-journal
+
+# Temporary files
+tmp/
+temp/
+
+# OS metadata
+.DS_Store
+Thumbs.db

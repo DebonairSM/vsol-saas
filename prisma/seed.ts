@@ -7,18 +7,25 @@ const prisma = new PrismaClient();
 const seedUsers = async (): Promise<void> => {
   const fakeUsers = faker.helpers.uniqueArray<users>(
     () => ({
-      id: faker.datatype.uuid(),
-      name: faker.name.fullName(),
+      id: faker.string.uuid(),
+      name: faker.person.fullName(),
       email: faker.internet.email(),
       phone: faker.phone.number(),
     }),
     3
   );
-  const users = await prisma.users.createMany({ data: fakeUsers });
+
+  // SQLite doesn't support createMany, so we create users one by one
+  let count = 0;
+  for (const user of fakeUsers) {
+    await prisma.users.create({ data: user });
+    count++;
+  }
+
   logger.info(`
     \r${HR('white', '-', 30)}
     \rSeed completed for model: user
-    \rcount: ${users.count}
+    \rcount: ${count}
     \r${HR('white', '-', 30)}
   `);
 };
